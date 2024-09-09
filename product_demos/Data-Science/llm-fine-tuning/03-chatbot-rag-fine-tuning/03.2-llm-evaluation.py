@@ -89,7 +89,7 @@ display_answer(not_fine_tuned_answer)
 
 # COMMAND ----------
 
-serving_endpoint_ft_name = "dbdemos_llm_fine_tuned"
+serving_endpoint_ft_name = "dbdemos_rag_llm_fine_tuned_felix" #"dbdemos_llm_fine_tuned"
 fine_tuned_answer = client.predict(endpoint=serving_endpoint_ft_name, inputs={"messages": [{"role": "user", "content": question}]})
 display_answer(fine_tuned_answer)
 
@@ -104,8 +104,13 @@ display_answer(fine_tuned_answer)
 
 # COMMAND ----------
 
+
+
+# COMMAND ----------
+
 # DBTITLE 1,Build an eval dataset
 eval_dataset = spark.table("chat_completion_evaluation_dataset").withColumnRenamed("content", "context").toPandas()
+eval_dataset = eval_dataset.head(40)
 display(eval_dataset)
 
 # COMMAND ----------
@@ -186,6 +191,10 @@ fine_tuned_results = eval_llm(serving_endpoint_ft_name, eval_dataset, llm_judge 
 # MAGIC You can also analyse individual queries and filter on the question with very incorrect answer, and improve your training dataset accordingly.
 # MAGIC
 # MAGIC If you have a bigger dataset, you can also programatically filter on the rows having bad answer, and ask an external model such as DBRX to summarize what is not working to give you insights on your training dataset at scale!
+
+# COMMAND ----------
+
+baseline_results.metrics
 
 # COMMAND ----------
 

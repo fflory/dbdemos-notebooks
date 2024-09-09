@@ -204,6 +204,27 @@ wait_for_run_to_finish(run)
 
 # COMMAND ----------
 
+# test this model only load this model when using a cluster with enough GPUs to support it
+# import mlflow 
+# registered_model_name = f"{catalog}.{db}." + re.sub(r'[^a-zA-Z0-9]', '_',  base_model_name)
+
+# from mlflow.tracking.client import MlflowClient
+
+# client = MlflowClient()
+
+# model_version_infos = client.search_model_versions(f"name = '{registered_model_name}'")
+# latest_model_version = max([model_version_info.version for model_version_info in model_version_infos])
+
+# import mlflow.pyfunc
+
+# model_version_uri = f"models:/{registered_model_name}/{latest_model_version}"
+
+# print(f"Loading registered model version from URI: '{model_version_uri}'")
+
+# model_version_1 = mlflow.pyfunc.load_model(model_version_uri)
+
+# COMMAND ----------
+
 # MAGIC %md-sandbox
 # MAGIC #### 1.3) Deploy Fine Tuned Model to a Serving Endpoint
 # MAGIC
@@ -220,7 +241,7 @@ wait_for_run_to_finish(run)
 from databricks.sdk import WorkspaceClient
 from databricks.sdk.service.serving import ServedEntityInput, EndpointCoreConfigInput, AutoCaptureConfigInput
 
-serving_endpoint_name = "dbdemos_llm_fine_tuned"
+serving_endpoint_name = "dbdemos_rag_llm_fine_tuned_felix" # "dbdemos_llm_fine_tuned"
 w = WorkspaceClient()
 endpoint_config = EndpointCoreConfigInput(
     name=serving_endpoint_name,

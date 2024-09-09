@@ -239,7 +239,7 @@ wait_for_run_to_finish(run)
 from databricks.sdk import WorkspaceClient
 from databricks.sdk.service.serving import ServedEntityInput, EndpointCoreConfigInput
 
-serving_endpoint_name = "dbdemos_classification_fine_tuned"
+serving_endpoint_name = "dbdemos_classification_fine_tuned_felix"
 w = WorkspaceClient()
 endpoint_config = EndpointCoreConfigInput(
     name=serving_endpoint_name,
@@ -306,9 +306,3 @@ display(df)
 # MAGIC
 # MAGIC [Open the 02.1-llm-rag-fine-tuning]($./03-chatbot-rag-fine-tuning/03.1-llm-rag-fine-tuning) notebook to explore how to evaluate your LLM using Databricks built-in eval capabilities.
 # MAGIC
-
-# COMMAND ----------
-
-# MAGIC %environment
-# MAGIC "client": "1"
-# MAGIC "base_environment": ""

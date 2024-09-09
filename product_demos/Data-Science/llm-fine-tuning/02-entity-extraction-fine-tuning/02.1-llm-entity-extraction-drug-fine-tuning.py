@@ -297,7 +297,7 @@ wait_for_run_to_finish(run)
 from databricks.sdk import WorkspaceClient
 from databricks.sdk.service.serving import ServedEntityInput, EndpointCoreConfigInput, AutoCaptureConfigInput
 
-serving_endpoint_name = "dbdemos_llm_drug_extraction_fine_tuned"
+serving_endpoint_name = "dbdemos_llm_drug_extraction_fine_tuned_jmccall"# "dbdemos_llm_drug_extraction_fine_tuned"
 w = WorkspaceClient()
 endpoint_config = EndpointCoreConfigInput(
     name=serving_endpoint_name,

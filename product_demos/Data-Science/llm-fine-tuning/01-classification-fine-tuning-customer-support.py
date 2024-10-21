@@ -239,7 +239,7 @@ wait_for_run_to_finish(run)
 from databricks.sdk import WorkspaceClient
 from databricks.sdk.service.serving import ServedEntityInput, EndpointCoreConfigInput
 
-serving_endpoint_name = "dbdemos_classification_fine_tuned"
+serving_endpoint_name = "dbdemos_classification_fine_tuned_felix"
 w = WorkspaceClient()
 endpoint_config = EndpointCoreConfigInput(
     name=serving_endpoint_name,
@@ -280,7 +280,7 @@ except:
 
 df = spark.sql(f"""
         SELECT 
-            ai_query("dbdemos_classification_fine_tuned", concat("{system_prompt}", description)) AS fine_tuned_prediction,
+            ai_query("dbdemos_classification_fine_tuned_felix", concat("{system_prompt}", description)) AS fine_tuned_prediction,
             description,
             email
         FROM customer_tickets 

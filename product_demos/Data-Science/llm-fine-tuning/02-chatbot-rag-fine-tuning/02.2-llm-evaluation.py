@@ -46,7 +46,7 @@ dbutils.library.restartPython()
 from databricks.sdk import WorkspaceClient
 from databricks.sdk.service.serving import ServedEntityInput, EndpointCoreConfigInput, AutoCaptureConfigInput
 
-serving_endpoint_baseline_name = "dbdemos_llm_not_fine_tuned"
+serving_endpoint_baseline_name = "dbdemos_llm_not_fine_tuned_felix"
 w = WorkspaceClient()
 endpoint_config = EndpointCoreConfigInput(
     name=serving_endpoint_baseline_name,
@@ -89,7 +89,25 @@ display_answer(not_fine_tuned_answer)
 
 # COMMAND ----------
 
-serving_endpoint_ft_name = "dbdemos_llm_fine_tuned"
+import mlflow
+from mlflow import deployments
+
+question = "How can I find my account ID?"
+inputs = {"messages": [{"role": "user", "content": question}], "max_tokens": 400}
+
+client = mlflow.deployments.get_deploy_client("databricks")
+not_fine_tuned_answer = client.predict(endpoint=serving_endpoint_baseline_name, inputs=inputs)
+display_answer(not_fine_tuned_answer)
+
+# COMMAND ----------
+
+serving_endpoint_ft_name = "dbdemos_llm_fine_tuned_felix"
+fine_tuned_answer = client.predict(endpoint=serving_endpoint_ft_name, inputs={"messages": [{"role": "user", "content": question}]})
+display_answer(fine_tuned_answer)
+
+# COMMAND ----------
+
+serving_endpoint_ft_name = "dbdemos_llm_fine_tuned_felix"
 fine_tuned_answer = client.predict(endpoint=serving_endpoint_ft_name, inputs={"messages": [{"role": "user", "content": question}]})
 display_answer(fine_tuned_answer)
 
@@ -190,6 +208,11 @@ fine_tuned_results = eval_llm(serving_endpoint_ft_name, eval_dataset, llm_judge 
 # COMMAND ----------
 
 fine_tuned_results.metrics
+
+# COMMAND ----------
+
+fine_tuned_results.artifacts
+
 
 # COMMAND ----------
 

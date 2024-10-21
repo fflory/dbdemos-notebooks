@@ -8,6 +8,6 @@
 
 # COMMAND ----------
 
-catalog = "main__build"
-dbName = db = "dbdemos_llm_fine_tuning"
+catalog = "felixflory"
+dbName = db = "dbdemos_llm_fine_tuning_v2"
 volume_name = "raw_training_data"

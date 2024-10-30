@@ -24,7 +24,7 @@
 
 #Use a service principal token to access the serving endpoint. Never package PAT token within your function. This will be improved soon to simplify user experience.
 databricks_token = dbutils.secrets.get('dbdemos', 'llm-agent-tools')
-#databricks_token = dbutils.notebook.entry_point.getDbutils().notebook().getContext().apiToken().get()
+# databricks_token = dbutils.notebook.entry_point.getDbutils().notebook().getContext().apiToken().get()
 
 # COMMAND ----------
 
@@ -55,6 +55,10 @@ $$;''')
 # MAGIC COMMENT 'This function generate an images and returns its content as binary.'
 # MAGIC RETURN
 # MAGIC   SELECT generate_image_with_secret(my_prompt, secret('dbdemos', 'llm-agent-tools')) as image;
+
+# COMMAND ----------
+
+import pyspark.sql.functions as F
 
 # COMMAND ----------
 

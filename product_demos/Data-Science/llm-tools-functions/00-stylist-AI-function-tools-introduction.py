@@ -116,7 +116,7 @@
 # MAGIC   try:
 # MAGIC     import requests as r
 # MAGIC     #Note: this is provided for education only, non commercial - please get a license for real usage: https://api.open-meteo.com. Let s comment it to avoid issues for now
-# MAGIC     #weather = r.get(f'https://api.open-meteo.com/v1/forecast?latitude={latitude}&longitude={longitude}&current=temperature_2m,rain&forecast_days=1').json()
+# MAGIC     weather = r.get(f'https://api.open-meteo.com/v1/forecast?latitude={latitude}&longitude={longitude}&current=temperature_2m,rain&forecast_days=1').json()
 # MAGIC     return {
 # MAGIC       "temperature_in_celsius": weather["current"]["temperature_2m"],
 # MAGIC       "rain_in_mm": weather["current"]["rain"]

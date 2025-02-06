@@ -30,6 +30,11 @@
 
 # COMMAND ----------
 
+# MAGIC %md
+# MAGIC set catalog in product_demos/Data-Science/feature-store/_resources/00-init-basic
+
+# COMMAND ----------
+
 # MAGIC %run ./_resources/00-init-expert
 
 # COMMAND ----------
@@ -304,6 +309,14 @@ print(f"Best run id: {summary_cl.best_trial.mlflow_run_id}")
 
 # COMMAND ----------
 
+# MAGIC %md
+# MAGIC 2025/02/06 17:12:49 INFO databricks.automl.client.manager: AutoML will optimize for Log loss metric, which is tracked as val_log_loss in the MLflow experiment.
+# MAGIC 2025/02/06 17:12:50 INFO databricks.automl.client.manager: MLflow Experiment ID: 3545095998799747
+# MAGIC 2025/02/06 17:12:50 INFO databricks.automl.client.manager: MLflow Experiment: https://e2-demo-field-eng.cloud.databricks.com/?o=1444828305810485#mlflow/experiments/3545095998799747
+# MAGIC
+
+# COMMAND ----------
+
 # MAGIC %md 
 # MAGIC ## Save our best model to MLflow registry
 # MAGIC
@@ -476,7 +489,7 @@ wait_for_online_tables(catalog, db, ["user_features_online", "destination_featur
 
 # COMMAND ----------
 
-endpoint_name = "dbdemos_feature_store_endpoint_expert"
+endpoint_name = "dbdemos_feature_store_endpoint_expert_fflory"
 wc = WorkspaceClient()
 served_models =[ServedModelInput(model_full_name, model_version=latest_model.version, workload_size=ServedModelInputWorkloadSize.SMALL, scale_to_zero_enabled=True)]
 try:
@@ -488,6 +501,11 @@ except Exception as e:
         wc.serving_endpoints.update_config_and_wait(endpoint_name, served_models=served_models)
     else: 
         raise e
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC endpoint creation failed - pip installing pandas causes issues
 
 # COMMAND ----------
 
@@ -534,7 +552,7 @@ for i in range(3):
 # COMMAND ----------
 
 # DBTITLE 1,Save the feature spec within Unity Catalog
-feature_spec_name = f"{catalog}.{db}.travel_feature_spec"
+feature_spec_name = f"{catalog}.{db}.travel_feature_spec_fflory"
 try:
     fe.create_feature_spec(name=feature_spec_name, features=feature_lookups, exclude_columns=['user_id', 'destination_id', 'booking_date', 'clicked', 'price'])
 except Exception as e:
@@ -546,7 +564,7 @@ except Exception as e:
 from databricks.feature_engineering.entities.feature_serving_endpoint import AutoCaptureConfig, EndpointCoreConfig, ServedEntity
 
 # Create endpoint
-feature_endpoint_name = "dbdemos-fse-travel-spec"
+feature_endpoint_name = "dbdemos-fse-travel-spec-fflory"
 try: 
     status = fe.create_feature_serving_endpoint(name=feature_endpoint_name, 
                                                 config=EndpointCoreConfig(served_entities=ServedEntity(scale_to_zero_enabled= True, feature_spec_name=feature_spec_name)))

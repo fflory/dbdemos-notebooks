@@ -13,7 +13,7 @@
 
 # COMMAND ----------
 
-databricks_token = dbutils.secrets.get('dbdemos', 'llm-agent-tools')
+databricks_token = dbutils.secrets.get('felix-flory', 'pat')
 
 # COMMAND ----------
 
